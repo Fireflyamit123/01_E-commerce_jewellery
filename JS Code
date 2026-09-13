@@ -1,0 +1,321 @@
+// --- Hero Banner Image Slideshow ---
+let currentSlide = 0;
+const slides = document.querySelectorAll('.hero-section .slide');
+
+function showNextSlide() {
+    // Hide current slide
+    slides[currentSlide].classList.remove('active');
+    
+    // Move to next slide or loop back to first
+    currentSlide = (currentSlide + 1) % slides.length;
+    
+    // Show new slide
+    slides[currentSlide].classList.add('active');
+}
+
+// Automatically change slide every 4 seconds
+setInterval(showNextSlide, 4000);
+
+document.addEventListener("DOMContentLoaded", () => {
+
+    const registrationModal = document.querySelector("#registration-modal");
+    const registrationForm = document.querySelector("#registration-form");
+    const registrationStatus = document.querySelector("#registration-status");
+
+    function closeRegistrationModal() {
+        registrationModal.hidden = true;
+        document.body.classList.remove("modal-open");
+        registrationStatus.textContent = "";
+    }
+
+    document.querySelectorAll(".account-link").forEach((link) => {
+        link.addEventListener("click", (event) => {
+            event.preventDefault();
+            registrationModal.hidden = false;
+            document.body.classList.add("modal-open");
+            document.querySelector("#full-name").focus();
+        });
+    });
+
+    registrationModal.querySelectorAll("[data-close-registration]").forEach((closeButton) => {
+        closeButton.addEventListener("click", closeRegistrationModal);
+    });
+
+    registrationForm.addEventListener("submit", (event) => {
+        event.preventDefault();
+        const formData = new FormData(registrationForm);
+
+        if (formData.get("password") !== formData.get("confirmPassword")) {
+            registrationStatus.textContent = "Passwords do not match.";
+            registrationStatus.className = "registration-status error";
+            document.querySelector("#confirm-password").focus();
+            return;
+        }
+
+        localStorage.setItem("tulipUser", JSON.stringify({
+            fullName: formData.get("fullName"),
+            age: formData.get("age"),
+            phone: formData.get("phone"),
+            email: formData.get("email")
+        }));
+        registrationStatus.textContent = "Your account has been created successfully.";
+        registrationStatus.className = "registration-status success";
+        registrationForm.reset();
+    });
+
+    document.addEventListener("keydown", (event) => {
+        if (event.key === "Escape" && !registrationModal.hidden) {
+            closeRegistrationModal();
+        }
+        if (event.key === "Escape" && !productDetailModal.hidden) {
+            closeProductDetails();
+        }
+    });
+
+    function createPreviewCard(id, htmlContent) {
+        const card = document.createElement("div");
+        card.id = id;
+        card.className = "nav-preview-card";
+        card.innerHTML = htmlContent;
+        document.body.appendChild(card);
+        return card;
+    }
+
+    // 1. About Preview Card
+    const aboutCard = createPreviewCard("about-preview-card", `
+        <h3>About TULIP</h3>
+        <p><strong>TULIP</strong> offers handcrafted luxury jewellery designed for every moment.</p>
+        <hr>
+        <p><strong>What We Sell:</strong></p>
+        <ul>
+            <li>💎 Certified Solitaire Diamond Rings</li>
+            <li>✨ 24k Gold & Gemstone Necklaces</li>
+            <li>👑 Royal Pendant Sets & Earrings</li>
+            <li>🌸 Fine Pearl & Diamond Bracelets</li>
+        </ul>
+        <p class="tagline">Ethically sourced • Lifetime Warranty</p>
+    `);
+
+    // 2. Contact Us Preview Card
+    const contactCard = createPreviewCard("contact-preview-card", `
+        <h3>Contact Us</h3>
+        <p class="contact-item"><strong>📞 Ph:</strong> 1234567890</p>
+        <p class="contact-item"><strong>✉️ Email:</strong> tulip54321@gmail.com</p>
+        <hr>
+        <p class="tagline">Available Mon - Sat | 9 AM - 7 PM</p>
+    `);
+
+    function attachHoverListener(selector, textMatch, cardElement) {
+        const link = document.querySelector(selector) || 
+                     Array.from(document.querySelectorAll('.nav-link, a')).find(el => el.textContent.trim().toLowerCase().includes(textMatch.toLowerCase()));
+
+        if (link) {
+            link.addEventListener("mouseenter", () => cardElement.classList.add("active"));
+            link.addEventListener("mouseleave", () => cardElement.classList.remove("active"));
+        }
+    }
+
+    attachHoverListener('a[href="#about"]', 'about', aboutCard);
+    attachHoverListener('a[href="#contact"]', 'contact', contactCard);
+
+    const categoryFilters = document.querySelectorAll(".category-filter");
+    const categoryLinks = document.querySelectorAll(".categories-bar a[data-filter]");
+    const productCards = document.querySelectorAll(".product-card[data-category]");
+    const productDetailModal = document.querySelector("#product-detail-modal");
+    const detailImage = document.querySelector("#detail-image");
+    const detailTitle = document.querySelector("#detail-title");
+    const detailRating = document.querySelector("#detail-rating");
+    const detailPrice = document.querySelector("#detail-price");
+    const detailOriginalPrice = document.querySelector("#detail-original-price");
+    const detailStatus = document.querySelector("#detail-status");
+
+    function closeProductDetails() {
+        productDetailModal.hidden = true;
+        document.body.classList.remove("modal-open");
+        detailStatus.textContent = "";
+    }
+
+    function openProductDetails(productCard) {
+        const productImage = productCard.querySelector("img");
+        detailImage.src = productImage.src;
+        detailImage.alt = productImage.alt;
+        detailTitle.textContent = productCard.querySelector(".product-title").textContent;
+        detailRating.textContent = productCard.querySelector(".rating").textContent;
+        detailPrice.textContent = productCard.querySelector(".price").textContent;
+        detailOriginalPrice.textContent = productCard.querySelector(".original-price").textContent;
+        productDetailModal.hidden = false;
+        document.body.classList.add("modal-open");
+    }
+
+    productCards.forEach((productCard) => {
+        productCard.addEventListener("click", (event) => {
+            if (!event.target.closest("button")) {
+                openProductDetails(productCard);
+            }
+        });
+    });
+
+    productDetailModal.querySelectorAll("[data-close-product]").forEach((closeButton) => {
+        closeButton.addEventListener("click", closeProductDetails);
+    });
+
+    document.querySelector("#detail-buy-now").addEventListener("click", () => {
+        detailStatus.textContent = "Your item is ready for checkout.";
+        detailStatus.className = "detail-status success";
+    });
+
+    document.querySelector("#detail-add-cart").addEventListener("click", () => {
+        detailStatus.textContent = "Added to your cart successfully.";
+        detailStatus.className = "detail-status success";
+    });
+
+    function filterProducts(category) {
+        productCards.forEach((productCard) => {
+            const categories = productCard.dataset.category.split(" ");
+            productCard.hidden = category !== "all" && !categories.includes(category);
+        });
+
+        categoryFilters.forEach((filterButton) => {
+            const isActive = filterButton.dataset.filter === category;
+            filterButton.classList.toggle("active", isActive);
+            filterButton.setAttribute("aria-pressed", String(isActive));
+        });
+    }
+
+    categoryFilters.forEach((filterButton) => {
+        filterButton.addEventListener("click", () => {
+            filterProducts(filterButton.dataset.filter);
+        });
+    });
+
+    categoryLinks.forEach((categoryLink) => {
+        categoryLink.addEventListener("click", (event) => {
+            event.preventDefault();
+            filterProducts(categoryLink.dataset.filter);
+            document.querySelector("#shop").scrollIntoView({ behavior: "smooth" });
+        });
+    });
+
+    const searchForm = document.querySelector("#search-form");
+    const searchInput = document.querySelector("#search-input");
+    const categoryAliases = {
+        "new arrivals": "all",
+        rings: "rings",
+        necklaces: "necklaces",
+        pendants: "necklaces",
+        earrings: "earrings",
+        bracelets: "bracelets",
+        gold: "gold",
+        diamonds: "diamonds"
+    };
+    const searchSuggestions = [
+        "New Arrivals",
+        "Rings",
+        "Necklaces",
+        "Earrings",
+        "Bracelets",
+        "Gold",
+        "Diamonds",
+        ...Array.from(productCards).map((productCard) => productCard.querySelector(".product-title").textContent.trim())
+    ];
+    const suggestionsPanel = document.querySelector("#search-suggestions");
+
+    function renderSearchSuggestions(searchTerm = "") {
+        const matchingSuggestions = searchSuggestions
+            .filter((suggestion, index, allSuggestions) => allSuggestions.indexOf(suggestion) === index)
+            .filter((suggestion) => suggestion.toLowerCase().includes(searchTerm.toLowerCase()))
+            .slice(0, 7);
+
+        suggestionsPanel.replaceChildren();
+        matchingSuggestions.forEach((suggestion) => {
+            const suggestionButton = document.createElement("button");
+            suggestionButton.type = "button";
+            suggestionButton.className = "search-suggestion";
+            suggestionButton.setAttribute("role", "option");
+            suggestionButton.textContent = suggestion;
+            suggestionButton.addEventListener("click", () => {
+                searchInput.value = suggestion;
+                suggestionsPanel.hidden = true;
+                searchForm.requestSubmit();
+            });
+            suggestionsPanel.appendChild(suggestionButton);
+        });
+
+        suggestionsPanel.hidden = matchingSuggestions.length === 0;
+    }
+
+    searchInput.addEventListener("focus", () => {
+        renderSearchSuggestions(searchInput.value.trim());
+    });
+    searchInput.addEventListener("click", () => {
+        renderSearchSuggestions(searchInput.value.trim());
+    });
+    searchInput.addEventListener("input", () => {
+        renderSearchSuggestions(searchInput.value.trim());
+    });
+    document.addEventListener("click", (event) => {
+        if (!searchForm.contains(event.target)) {
+            suggestionsPanel.hidden = true;
+        }
+    });
+
+    searchForm.addEventListener("submit", (event) => {
+        event.preventDefault();
+        suggestionsPanel.hidden = true;
+        const searchTerm = searchInput.value.trim().toLowerCase();
+
+        if (!searchTerm) {
+            filterProducts("all");
+            return;
+        }
+
+        const matchingCategory = categoryAliases[searchTerm];
+        if (matchingCategory) {
+            filterProducts(matchingCategory);
+        } else {
+            categoryFilters.forEach((filterButton) => {
+                filterButton.classList.remove("active");
+                filterButton.setAttribute("aria-pressed", "false");
+            });
+            productCards.forEach((productCard) => {
+                const productName = productCard.querySelector(".product-title").textContent.toLowerCase();
+                productCard.hidden = !productName.includes(searchTerm);
+            });
+        }
+
+        document.querySelector("#shop").scrollIntoView({ behavior: "smooth" });
+    });
+
+    const jewelleryPreview = createPreviewCard("jewellery-preview-card", "");
+    const jewelleryPreviewTitle = document.createElement("h3");
+    const jewelleryPreviewList = document.createElement("ul");
+    jewelleryPreview.append(jewelleryPreviewTitle, jewelleryPreviewList);
+
+    document.querySelectorAll(".categories-bar a[data-jewellery]").forEach((categoryLink) => {
+        categoryLink.addEventListener("mouseenter", () => {
+            jewelleryPreviewTitle.textContent = categoryLink.textContent.trim();
+            jewelleryPreviewList.replaceChildren();
+
+            const linkBounds = categoryLink.getBoundingClientRect();
+            const previewHalfWidth = 125;
+            const previewCenter = Math.min(
+                Math.max(linkBounds.left + linkBounds.width / 2, previewHalfWidth),
+                window.innerWidth - previewHalfWidth
+            );
+            jewelleryPreview.style.left = `${previewCenter}px`;
+            jewelleryPreview.style.top = `${linkBounds.bottom + 8}px`;
+
+            categoryLink.dataset.jewellery.split("|").forEach((itemName) => {
+                const item = document.createElement("li");
+                item.textContent = itemName;
+                jewelleryPreviewList.appendChild(item);
+            });
+
+            jewelleryPreview.classList.add("active");
+        });
+
+        categoryLink.addEventListener("mouseleave", () => {
+            jewelleryPreview.classList.remove("active");
+        });
+    });
+});
