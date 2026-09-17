@@ -29,9 +29,15 @@
                 <a href="#contact" class="nav-link">Contact Us</a>
                 <a href="#login" class="nav-link account-link">Login</a>
                 <a href="#signup" class="nav-btn account-link">Sign Up</a>
-                <a href="#cart" class="cart-btn">
-                    🛒 Cart <span class="cart-count">0</span>
-                </a>
+                <div class="cart-menu-wrap" id="cart">
+                    <button class="cart-btn" id="cart-button" type="button" aria-expanded="false" aria-controls="cart-menu">
+                        🛒 Cart <span class="cart-count">0</span>
+                    </button>
+                    <div class="cart-menu" id="cart-menu" role="dialog" aria-label="Shopping cart" hidden>
+                        <h2>Your Cart</h2>
+                        <div class="cart-items" id="cart-items"></div>
+                    </div>
+                </div>
             </div>
         </div>
     </header>
@@ -40,6 +46,8 @@
     <div class="categories-bar">
         <ul>
             <li><a href="#shop" data-filter="all" data-jewellery="Solitaire Rings|Stackable Rings|Cocktail Rings">New Arrivals</a></li>
+            <li><a href="#shop" data-filter="women" data-jewellery="Wedding Rings|Diamond Bands|Pearl Sets|Gemstone Bracelets">Shop for Women</a></li>
+            <li><a href="#shop" data-filter="men" data-jewellery="Silver Chains|Gold Cuffs|Bracelet Sets|Classic Bands">Shop for Men</a></li>
             <li><a href="#shop" data-filter="rings" data-jewellery="Solitaire Rings|Halo Rings|Sapphire Rings|Wedding Bands">Rings</a></li>
             <li><a href="#shop" data-filter="necklaces" data-jewellery="Diamond Pendants|Gold Chains|Pearl Necklaces|Gemstone Pendants">Necklaces & Pendants</a></li>
             <li><a href="#shop" data-filter="earrings" data-jewellery="Diamond Studs|Gold Hoops|Pearl Drops|Chandelier Earrings">Earrings</a></li>
@@ -65,9 +73,18 @@
     <!-- Content Overlay -->
     <div class="hero-overlay">
         <div class="hero-content">
-            <p class="tagline">Timeless Beauty • Crafted with Love</p>
+            <div class="hero-cartoons" aria-hidden="true">
+                <span class="cartoon-bubble bubble-left">💖</span>
+                <span class="cartoon-bubble bubble-right">✨</span>
+            </div>
+            <p class="tagline">✨ Timeless Beauty • Crafted with Love 💖</p>
             <h1>Jewellery For Every You</h1>
-            <a href="#shop" class="hero-btn">Explore Collection</a>
+            <div class="hero-badges" aria-label="Brand highlights">
+                <span>💍 Gift-ready</span>
+                <span>🌸 Soft glam</span>
+                <span>🎁 Loved by all</span>
+            </div>
+            <a href="#shop" class="hero-btn">Explore Collection 💎</a>
         </div>
     </div>
 </section>
@@ -148,12 +165,14 @@
     <!-- Main Product Marketplace Section -->
     <main class="main-container" id="shop">
         
-        <h2 class="section-title">Trending Creations</h2>
+        <h2 class="section-title">Trending Creations ✨</h2>
 
         <div class="shop-toolbar" aria-label="Filter jewellery by category">
             <p class="shop-toolbar__label">Shop by category</p>
             <div class="category-filters" role="group" aria-label="Jewellery categories">
                 <button class="category-filter active" type="button" data-filter="all" aria-pressed="true">All Jewellery</button>
+                <button class="category-filter" type="button" data-filter="women" aria-pressed="false">Women</button>
+                <button class="category-filter" type="button" data-filter="men" aria-pressed="false">Men</button>
                 <button class="category-filter" type="button" data-filter="rings" aria-pressed="false">Rings</button>
                 <button class="category-filter" type="button" data-filter="necklaces" aria-pressed="false">Necklaces</button>
                 <button class="category-filter" type="button" data-filter="earrings" aria-pressed="false">Earrings</button>
@@ -184,7 +203,7 @@
             </div>
 
             <!-- Product 2 -->
-            <div class="product-card" data-category="necklaces">
+            <div class="product-card" data-category="necklaces women">
                 <div class="badge">Trending</div>
                 <img src="02.jpeg" alt="Royal Bloom Necklace">
                 <div class="product-info">
@@ -194,6 +213,40 @@
                         <span class="price">₹175</span>
                         <span class="original-price">₹200</span>
                         <span class="discount">13% OFF</span>
+                    </div>
+                    <p class="delivery">Free Express Delivery</p>
+                    <button class="add-to-cart-btn">Add to Cart</button>
+                </div>
+            </div>
+
+            <!-- Women Collection Highlight -->
+            <div class="product-card" data-category="women rings diamonds">
+                <div class="badge">For Her</div>
+                <img src="14.jpeg" alt="Elegant Diamond Ring for Women">
+                <div class="product-info">
+                    <h3 class="product-title">Floral Diamond Ring</h3>
+                    <div class="rating">★ 4.8 <span>(920)</span></div>
+                    <div class="price-box">
+                        <span class="price">₹190</span>
+                        <span class="original-price">₹225</span>
+                        <span class="discount">15% OFF</span>
+                    </div>
+                    <p class="delivery">Free Express Delivery</p>
+                    <button class="add-to-cart-btn">Add to Cart</button>
+                </div>
+            </div>
+
+            <!-- Men Collection Highlight -->
+            <div class="product-card" data-category="men bracelets gold">
+                <div class="badge">For Him</div>
+                <img src="17.jpeg" alt="Gold Cuff Bracelet for Men">
+                <div class="product-info">
+                    <h3 class="product-title">Bold Gold Cuff</h3>
+                    <div class="rating">★ 4.7 <span>(540)</span></div>
+                    <div class="price-box">
+                        <span class="price">₹210</span>
+                        <span class="original-price">₹250</span>
+                        <span class="discount">16% OFF</span>
                     </div>
                     <p class="delivery">Free Express Delivery</p>
                     <button class="add-to-cart-btn">Add to Cart</button>
@@ -297,6 +350,183 @@
                 </div>
             </div>
 
+            <!-- Product 9 -->
+            <div class="product-card" data-category="bracelets gold">
+                <img src="09.jpeg" alt="Golden Leaf Bracelet">
+                <div class="product-info">
+                    <h3 class="product-title">Golden Leaf Charm Bracelet</h3>
+                    <div class="rating">★ 4.8 <span>(380)</span></div>
+                    <div class="price-box">
+                        <span class="price">₹155</span>
+                        <span class="original-price">₹185</span>
+                        <span class="discount">16% OFF</span>
+                    </div>
+                    <p class="delivery">Free Express Delivery</p>
+                    <button class="add-to-cart-btn">Add to Cart</button>
+                </div>
+            </div>
+
+            <!-- Product 10 -->
+            <div class="product-card" data-category="rings gold">
+                <img src="10.jpeg" alt="Rose Gold Ring">
+                <div class="product-info">
+                    <h3 class="product-title">Rose Gold Bloom Ring</h3>
+                    <div class="rating">★ 4.7 <span>(275)</span></div>
+                    <div class="price-box">
+                        <span class="price">₹140</span>
+                        <span class="original-price">₹165</span>
+                        <span class="discount">15% OFF</span>
+                    </div>
+                    <p class="delivery">Free Express Delivery</p>
+                    <button class="add-to-cart-btn">Add to Cart</button>
+                </div>
+            </div>
+
+            <!-- Product 11 -->
+            <div class="product-card" data-category="earrings diamonds">
+                <img src="11.jpeg" alt="Diamond Halo Earrings">
+                <div class="product-info">
+                    <h3 class="product-title">Diamond Halo Drop Earrings</h3>
+                    <div class="rating">★ 4.9 <span>(510)</span></div>
+                    <div class="price-box">
+                        <span class="price">₹185</span>
+                        <span class="original-price">₹220</span>
+                        <span class="discount">16% OFF</span>
+                    </div>
+                    <p class="delivery">Free Express Delivery</p>
+                    <button class="add-to-cart-btn">Add to Cart</button>
+                </div>
+            </div>
+
+            <!-- Product 12 -->
+            <div class="product-card" data-category="necklaces diamonds">
+                <img src="12.jpeg" alt="Diamond Teardrop Necklace">
+                <div class="product-info">
+                    <h3 class="product-title">Diamond Teardrop Necklace</h3>
+                    <div class="rating">★ 4.8 <span>(445)</span></div>
+                    <div class="price-box">
+                        <span class="price">₹210</span>
+                        <span class="original-price">₹250</span>
+                        <span class="discount">16% OFF</span>
+                    </div>
+                    <p class="delivery">Free Express Delivery</p>
+                    <button class="add-to-cart-btn">Add to Cart</button>
+                </div>
+            </div>
+
+            <!-- Product 13 -->
+            <div class="product-card" data-category="bracelets diamonds">
+                <img src="13.jpeg" alt="Crystal Tennis Bracelet">
+                <div class="product-info">
+                    <h3 class="product-title">Crystal Line Tennis Bracelet</h3>
+                    <div class="rating">★ 4.6 <span>(295)</span></div>
+                    <div class="price-box">
+                        <span class="price">₹175</span>
+                        <span class="original-price">₹205</span>
+                        <span class="discount">15% OFF</span>
+                    </div>
+                    <p class="delivery">Free Express Delivery</p>
+                    <button class="add-to-cart-btn">Add to Cart</button>
+                </div>
+            </div>
+
+            <!-- Product 14 -->
+            <div class="product-card" data-category="rings diamonds">
+                <img src="14.jpeg" alt="Emerald Accent Ring">
+                <div class="product-info">
+                    <h3 class="product-title">Emerald Accent Cocktail Ring</h3>
+                    <div class="rating">★ 4.8 <span>(365)</span></div>
+                    <div class="price-box">
+                        <span class="price">₹195</span>
+                        <span class="original-price">₹230</span>
+                        <span class="discount">15% OFF</span>
+                    </div>
+                    <p class="delivery">Free Express Delivery</p>
+                    <button class="add-to-cart-btn">Add to Cart</button>
+                </div>
+            </div>
+
+            <!-- Product 15 -->
+            <div class="product-card" data-category="earrings gold">
+                <img src="15.jpeg" alt="Gold Hoop Earrings">
+                <div class="product-info">
+                    <h3 class="product-title">Classic 24k Gold Hoop Earrings</h3>
+                    <div class="rating">★ 4.7 <span>(610)</span></div>
+                    <div class="price-box">
+                        <span class="price">₹130</span>
+                        <span class="original-price">₹155</span>
+                        <span class="discount">16% OFF</span>
+                    </div>
+                    <p class="delivery">Free Express Delivery</p>
+                    <button class="add-to-cart-btn">Add to Cart</button>
+                </div>
+            </div>
+
+            <!-- Product 16 -->
+            <div class="product-card" data-category="necklaces gold">
+                <img src="16.jpeg" alt="Golden Chain Necklace">
+                <div class="product-info">
+                    <h3 class="product-title">Delicate Golden Chain Necklace</h3>
+                    <div class="rating">★ 4.6 <span>(240)</span></div>
+                    <div class="price-box">
+                        <span class="price">₹165</span>
+                        <span class="original-price">₹195</span>
+                        <span class="discount">15% OFF</span>
+                    </div>
+                    <p class="delivery">Free Express Delivery</p>
+                    <button class="add-to-cart-btn">Add to Cart</button>
+                </div>
+            </div>
+
+            <!-- Product 17 -->
+            <div class="product-card" data-category="bracelets gold">
+                <img src="17.jpeg" alt="Gold Cuff Bracelet">
+                <div class="product-info">
+                    <h3 class="product-title">Sculpted Gold Cuff Bracelet</h3>
+                    <div class="rating">★ 4.8 <span>(330)</span></div>
+                    <div class="price-box">
+                        <span class="price">₹220</span>
+                        <span class="original-price">₹260</span>
+                        <span class="discount">15% OFF</span>
+                    </div>
+                    <p class="delivery">Free Express Delivery</p>
+                    <button class="add-to-cart-btn">Add to Cart</button>
+                </div>
+            </div>
+
+            <!-- Product 18 -->
+            <div class="product-card" data-category="earrings diamonds">
+                <img src="18.jpeg" alt="Diamond Stud Earrings">
+                <div class="product-info">
+                    <h3 class="product-title">Classic Diamond Stud Earrings</h3>
+                    <div class="rating">★ 4.9 <span>(780)</span></div>
+                    <div class="price-box">
+                        <span class="price">₹200</span>
+                        <span class="original-price">₹240</span>
+                        <span class="discount">17% OFF</span>
+                    </div>
+                    <p class="delivery">Free Express Delivery</p>
+                    <button class="add-to-cart-btn">Add to Cart</button>
+                </div>
+            </div>
+
+            <!-- Product 19 -->
+            <div class="product-card" data-category="rings gold diamonds">
+                <div class="badge">New</div>
+                <img src="19.jpeg" alt="Golden Diamond Band">
+                <div class="product-info">
+                    <h3 class="product-title">Golden Diamond Eternity Band</h3>
+                    <div class="rating">★ 4.9 <span>(520)</span></div>
+                    <div class="price-box">
+                        <span class="price">₹235</span>
+                        <span class="original-price">₹280</span>
+                        <span class="discount">16% OFF</span>
+                    </div>
+                    <p class="delivery">Free Express Delivery</p>
+                    <button class="add-to-cart-btn">Add to Cart</button>
+                </div>
+            </div>
+
         </section>
     </main>
 
@@ -328,6 +558,61 @@
             </div>
         </div>
     </section>
+
+    <footer class="site-footer" id="contact">
+        <div class="footer-main">
+            <div class="footer-brand-column">
+                <a href="#" class="footer-logo">TULIP<span>.</span></a>
+                <p>Thoughtfully crafted jewellery for every moment, delivered with care.</p>
+                <div class="footer-socials" aria-label="Social media links">
+                    <a href="#" aria-label="Instagram">Instagram</a>
+                    <a href="#" aria-label="Facebook">Facebook</a>
+                    <a href="#" aria-label="Pinterest">Pinterest</a>
+                </div>
+            </div>
+
+            <div class="footer-column">
+                <h3>Get to Know Us</h3>
+                <a href="#about">About TULIP</a>
+                <a href="#shop">Our Collections</a>
+                <a href="#contact">Careers</a>
+                <a href="#contact">Press</a>
+            </div>
+
+            <div class="footer-column">
+                <h3>Customer Care</h3>
+                <a href="#contact">Contact Us</a>
+                <a href="#contact">Shipping & Delivery</a>
+                <a href="#contact">Returns & Exchanges</a>
+                <a href="#contact">Jewellery Care Guide</a>
+            </div>
+
+            <div class="footer-column">
+                <h3>Let Us Help You</h3>
+                <a href="#cart">Your Cart</a>
+                <a href="#login">Your Account</a>
+                <a href="#contact">Track Your Order</a>
+                <a href="#contact">Help Centre</a>
+            </div>
+
+            <div class="footer-contact-column">
+                <h3>Contact</h3>
+                <p>123 Tulip Lane, New Delhi</p>
+                <p>+91 12345 67890</p>
+                <p>tulip54321@gmail.com</p>
+                <p class="footer-hours">Mon - Sat · 9 AM - 7 PM</p>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>&copy; 2026 TULIP Jewellery. All rights reserved.</p>
+            <div class="footer-policies">
+                <a href="#contact">Privacy Notice</a>
+                <a href="#contact">Terms of Use</a>
+                <a href="#contact">Accessibility</a>
+            </div>
+        </div>
+    </footer>
 
 </body>
 </html>
