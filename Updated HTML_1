@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tulip | Jewellery For Every You</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- E-Commerce Navigation Bar -->
+    <header class="navbar">
+        <div class="nav-container">
+            <!-- Brand Logo (Left Side) -->
+            <a href="#" class="logo" aria-label="TULIP">TUL<span class="logo-flower" aria-hidden="true"></span>P<span class="logo-dot">.</span></a>
+
+            <!-- Search Bar (Middle Side) -->
+            <form class="search-bar" id="search-form">
+                <input id="search-input" type="search" placeholder="Search rings, necklaces, diamonds..." aria-label="Search jewellery">
+                <button type="submit">Search</button>
+                <div class="search-suggestions" id="search-suggestions" role="listbox" aria-label="Search suggestions" hidden></div>
+            </form>
+
+            <!-- User Menu & Navigation Links (Right Side) -->
+            <div class="nav-actions">
+                <a href="#about" class="nav-link">About</a>
+                <a href="#contact" class="nav-link">Contact Us</a>
+                <a href="#orders" class="nav-link">My Orders</a>
+                <a href="#login" class="nav-link account-link">Login</a>
+                <a href="#signup" class="nav-btn account-link">Sign Up</a>
+                <div class="cart-menu-wrap" id="cart">
+                    <button class="cart-btn" id="cart-button" type="button" aria-expanded="false" aria-controls="cart-menu">
+                        🛒 Cart <span class="cart-count">0</span>
+                    </button>
+                    <div class="cart-menu" id="cart-menu" role="dialog" aria-label="Shopping cart" hidden>
+                        <h2>Your Cart</h2>
+                        <div class="cart-items" id="cart-items"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Category Strip -->
+    <div class="categories-bar">
+        <ul>
+            <li><a href="#shop" data-filter="all" data-jewellery="Solitaire Rings|Stackable Rings|Cocktail Rings">New Arrivals</a></li>
+            <li><a href="#shop" data-filter="women" data-jewellery="Wedding Rings|Diamond Bands|Pearl Sets|Gemstone Bracelets">Shop for Women</a></li>
+            <li><a href="#shop" data-filter="men" data-jewellery="Silver Chains|Gold Cuffs|Bracelet Sets|Classic Bands">Shop for Men</a></li>
+            <li><a href="#shop" data-filter="rings" data-jewellery="Solitaire Rings|Halo Rings|Sapphire Rings|Wedding Bands">Rings</a></li>
+            <li><a href="#shop" data-filter="necklaces" data-jewellery="Diamond Pendants|Gold Chains|Pearl Necklaces|Gemstone Pendants">Necklaces & Pendants</a></li>
+            <li><a href="#shop" data-filter="earrings" data-jewellery="Diamond Studs|Gold Hoops|Pearl Drops|Chandelier Earrings">Earrings</a></li>
+            <li><a href="#shop" data-filter="bracelets" data-jewellery="Tennis Bracelets|Gold Cuffs|Charm Bracelets|Diamond Bangles">Bracelets</a></li>
+            <li><a href="#shop" data-filter="gold" data-jewellery="24k Gold Bands|Gold Hoop Earrings|Gold Chains|Gold Pendants">Gold</a></li>
+            <li><a href="#shop" data-filter="diamonds" data-jewellery="Solitaire Diamonds|Diamond Tennis Bracelets|Diamond Studs|Diamond Halo Rings">Diamonds</a></li>
+        </ul>
+    </div>
+
+   <!-- Hero Banner Slideshow -->
+<section class="hero-section">
+    <!-- Slideshow Background Images -->
+    <div class="slide active" style="background-image: url('BI.png');"></div>
+    <div class="slide" style="background-image: url('01.jpeg');"></div>
+    <div class="slide" style="background-image: url('02.jpeg');"></div>
+    <div class="slide" style="background-image: url('03.jpeg');"></div>
+    <div class="slide" style="background-image: url('04.jpeg');"></div>
+    <div class="slide" style="background-image: url('05.jpeg');"></div>
+    <div class="slide" style="background-image: url('06.jpeg');"></div>
+    <div class="slide" style="background-image: url('07.jpeg');"></div>
+    <div class="slide" style="background-image: url('08.jpeg');"></div>
+
+    <!-- Content Overlay -->
+    <div class="hero-overlay">
+        <div class="hero-content">
+            <div class="hero-cartoons" aria-hidden="true">
+                <span class="cartoon-bubble bubble-left">💖</span>
+                <span class="cartoon-bubble bubble-right">✨</span>
+            </div>
+            <p class="tagline">✨ Timeless Beauty • Crafted with Love 💖</p>
+            <h1>Jewellery For Every You</h1>
+            <div class="hero-badges" aria-label="Brand highlights">
+                <span>💍 Gift-ready</span>
+                <span>🌸 Soft glam</span>
+                <span>🎁 Loved by all</span>
+            </div>
+            <a href="#shop" class="hero-btn">Explore Collection 💎</a>
+        </div>
+    </div>
+</section>
+
+<!-- Registration dialog -->
+<div class="auth-modal" id="registration-modal" role="dialog" aria-modal="true" aria-labelledby="registration-title" hidden>
+    <div class="auth-modal__backdrop" data-close-registration></div>
+    <section class="auth-modal__content">
+        <button class="auth-modal__close" type="button" aria-label="Close registration form" data-close-registration>&times;</button>
+        <p class="auth-modal__eyebrow">Welcome to TULIP</p>
+        <h2 id="registration-title">Create your account</h2>
+        <p class="auth-modal__intro">Save your details for a more personal jewellery experience.</p>
+        <form id="registration-form" class="registration-form">
+            <div class="form-field form-field--wide">
+                <label for="full-name">Full name</label>
+                <input id="full-name" name="fullName" type="text" autocomplete="name" required>
+            </div>
+            <div class="form-field">
+                <label for="age">Age</label>
+                <input id="age" name="age" type="number" min="13" max="120" inputmode="numeric" required>
+            </div>
+            <div class="form-field">
+                <label for="phone">Phone number</label>
+                <input id="phone" name="phone" type="tel" autocomplete="tel" pattern="[0-9+() .-]{7,}" required>
+            </div>
+            <div class="form-field form-field--wide">
+                <label for="email">Email address</label>
+                <input id="email" name="email" type="email" autocomplete="email" required>
+            </div>
+            <div class="form-field">
+                <label for="password">Password</label>
+                <input id="password" name="password" type="password" minlength="8" autocomplete="new-password" required>
+            </div>
+            <div class="form-field">
+                <label for="confirm-password">Confirm password</label>
+                <input id="confirm-password" name="confirmPassword" type="password" minlength="8" autocomplete="new-password" required>
+            </div>
+            <button class="registration-submit" type="submit">Create account</button>
+            <p class="registration-status" id="registration-status" role="status" aria-live="polite"></p>
+        </form>
+    </section>
+</div>
+
+<!-- Product details view -->
+<div class="product-detail-modal" id="product-detail-modal" role="dialog" aria-modal="true" aria-labelledby="detail-title" hidden>
+    <div class="product-detail-modal__backdrop" data-close-product></div>
+    <section class="product-detail-modal__content">
+        <button class="product-detail-modal__close" type="button" aria-label="Close product details" data-close-product>&times;</button>
+        <div class="product-detail-layout">
+            <div class="product-detail-image-wrap">
+                <img id="detail-image" src="" alt="">
+            </div>
+            <div class="product-detail-info">
+                <p class="product-detail-eyebrow">TULIP fine jewellery</p>
+                <h2 id="detail-title"></h2>
+                <p id="detail-rating" class="product-detail-rating"></p>
+                <div class="product-detail-price">
+                    <span id="detail-price"></span>
+                    <span id="detail-original-price" class="original-price"></span>
+                </div>
+                <p class="product-detail-description">A thoughtfully crafted piece designed to add a refined finish to every special moment.</p>
+                <div class="detail-quantity">
+                    <label for="detail-quantity-input">Quantity</label>
+                    <input id="detail-quantity-input" type="number" min="1" max="10" value="1">
+                </div>
+                <div class="detail-actions">
+                    <button id="detail-order" class="detail-buy-button" type="button">Order</button>
+                    <button id="detail-gift-pack" class="detail-gift-button" type="button">Quick Gift Pack</button>
+                </div>
+                <p id="detail-status" class="detail-status" role="status" aria-live="polite"></p>
+            </div>
+        </div>
+    </section>
+</div>
+
+<!-- Link to JavaScript File -->
+<script src="app.js"></script>
+    <!-- Main Product Marketplace Section -->
+    <main class="main-container" id="shop">
+        
+        <h2 class="section-title">Trending Creations ✨</h2>
+
+        <div class="shop-toolbar" aria-label="Filter jewellery by category">
+            <p class="shop-toolbar__label">Shop by category</p>
+            <div class="category-filters" role="group" aria-label="Jewellery categories">
+                <button class="category-filter active" type="button" data-filter="all" aria-pressed="true">All Jewellery</button>
+                <button class="category-filter" type="button" data-filter="women" aria-pressed="false">Women</button>
+                <button class="category-filter" type="button" data-filter="men" aria-pressed="false">Men</button>
+                <button class="category-filter" type="button" data-filter="rings" aria-pressed="false">Rings</button>
+                <button class="category-filter" type="button" data-filter="necklaces" aria-pressed="false">Necklaces</button>
+                <button class="category-filter" type="button" data-filter="earrings" aria-pressed="false">Earrings</button>
+                <button class="category-filter" type="button" data-filter="bracelets" aria-pressed="false">Bracelets</button>
+                <button class="category-filter" type="button" data-filter="gold" aria-pressed="false">Gold</button>
+                <button class="category-filter" type="button" data-filter="diamonds" aria-pressed="false">Diamonds</button>
+            </div>
+        </div>
+
+        <div class="shop-layout">
+            <aside class="quick-gift-panel" aria-label="Quick Gift Pack offers">
+                <p class="gift-label">Quick Gift Pack</p>
+                <h3>Thoughtful gifting, ready in minutes</h3>
+
+                <div class="gift-pack-list" id="gift-pack-list">
+                    <p class="gift-pack-empty">No items selected yet.</p>
+                </div>
+
+                <div class="gift-pack-item static-gift-item">
+                    <span class="gift-icon">💍</span>
+                    <div>
+                        <strong>Ring + Box Set</strong>
+                        <p>Her favorite sparkle with a keepsake pouch.</p>
+                    </div>
+                </div>
+
+                <div class="gift-pack-item static-gift-item">
+                    <span class="gift-icon">✨</span>
+                    <div>
+                        <strong>Deluxe Charm Pack</strong>
+                        <p>Elegant styling picks for every occasion.</p>
+                    </div>
+                </div>
+
+                <div class="gift-pack-item static-gift-item">
+                    <span class="gift-icon">🎁</span>
+                    <div>
+                        <strong>Gift Ready Combo</strong>
+                        <p>Wrapped, handwritten note, and free delivery.</p>
+                    </div>
+                </div>
+
+                <a href="#shop" class="gift-pack-link">Build Your Gift Box</a>
+            </aside>
+
+            <section class="products-grid">
+            
+            <!-- Product 1 -->
+            <div class="product-card" data-category="rings diamonds wedding">
+                <div class="badge">Bestseller</div>
+                <img src="01.jpeg" alt="Tulip Solitaire Ring">
+                <div class="product-info">
+                    <h3 class="product-title">Tulip Solitaire Diamond Ring</h3>
+                    <div class="rating">★ 4.8 <span>(1,240)</span></div>
+                    <div class="price-box">
+                        <span class="price">₹125</span>
+                        <span class="original-price">₹150</span>
+                        <span class="discount">16% OFF</span>
+                    </div>
+                    <p class="delivery">Free Express Delivery</p>
+                    <button class="add-to-cart-btn">Add to Cart</button>
+                </div>
+            </div>
+
+            <!-- Product 2 -->
+            <div class="product-card" data-category="necklaces women birthday">
+                <div class="badge">Trending</div>
+                <img src="02.jpeg" alt="Royal Bloom Necklace">
+                <div class="product-info">
+                    <h3 class="product-title">Royal Bloom Pendant Necklace</h3>
+                    <div class="rating">★ 4.9 <span>(850)</span></div>
+                    <div class="price-box">
+                        <span class="price">₹175</span>
+                        <span class="original-price">₹200</span>
+                        <span class="discount">13% OFF</span>
+                    </div>
+                    <p class="delivery">Free Express Delivery</p>
+                    <button class="add-to-cart-btn">Add to Cart</button>
+                </div>
+            </div>
+
+            <!-- Women Collection Highlight -->
+            <div class="product-card" data-category="women rings diamonds wedding">
+                <div class="badge">For Her</div>
+                <img src="14.jpeg" alt="Elegant Diamond Ring for Women">
+                <div class="product-info">
+                    <h3 class="product-title">Floral Diamond Ring</h3>
+                    <div class="rating">★ 4.8 <span>(920)</span></div>
+                    <div class="price-box">
+                        <span class="price">₹190</span>
+                        <span class="original-price">₹225</span>
+                        <span class="discount">15% OFF</span>
+                    </div>
+                    <p class="delivery">Free Express Delivery</p>
+                    <button class="add-to-cart-btn">Add to Cart</button>
+                </div>
+            </div>
+
+            <!-- Men Collection Highlight -->
+            <div class="product-card" data-category="men bracelets gold reception">
+                <div class="badge">For Him</div>
+                <img src="17.jpeg" alt="Gold Cuff Bracelet for Men">
+                <div class="product-info">
+                    <h3 class="product-title">Bold Gold Cuff</h3>
+                    <div class="rating">★ 4.7 <span>(540)</span></div>
+                    <div class="price-box">
+                        <span class="price">₹210</span>
+                        <span class="original-price">₹250</span>
+                        <span class="discount">16% OFF</span>
+                    </div>
+                    <p class="delivery">Free Express Delivery</p>
+                    <button class="add-to-cart-btn">Add to Cart</button>
+                </div>
+            </div>
+
+            <!-- Product 3 -->
+            <div class="product-card" data-category="earrings gold birthday">
+                <img src="03.jpeg" alt="Petal Drop Earrings">
+                <div class="product-info">
+                    <h3 class="product-title">Tulip Petal Gold Drop Earrings</h3>
+                    <div class="rating">★ 4.7 <span>(430)</span></div>
+                    <div class="price-box">
+                        <span class="price">₹110</span>
+                        <span class="original-price">₹130</span>
+                        <span class="discount">15% OFF</span>
+                    </div>
+                    <p class="delivery">Free Express Delivery</p>
+                    <button class="add-to-cart-btn">Add to Cart</button>
+                </div>
+            </div>
+
+            <!-- Product 4 -->
+            <div class="product-card" data-category="bracelets diamonds party">
+                <img src="04.jpeg" alt="Diamond Blossom Bracelet">
+                <div class="product-info">
+                    <h3 class="product-title">Diamond Blossom Tennis Bracelet</h3>
+                    <div class="rating">★ 4.6 <span>(310)</span></div>
+                    <div class="price-box">
+                        <span class="price">₹150</span>
+                        <span class="original-price">₹180</span>
+                        <span class="discount">17% OFF</span>
+                    </div>
+                    <p class="delivery">Free Express Delivery</p>
+                    <button class="add-to-cart-btn">Add to Cart</button>
+                </div>
+            </div>
+
+            <!-- Product 5 -->
+            <div class="product-card" data-category="gold rings">
+                <img src="05.jpeg" alt="Vintage Gold Band">
+                <div class="product-info">
+                    <h3 class="product-title">Vintage 24k Gold Engraved Band</h3>
+                    <div class="rating">★ 4.9 <span>(2,100)</span></div>
+                    <div class="price-box">
+                        <span class="price">₹135</span>
+                        <span class="original-price">₹155</span>
+                        <span class="discount">13% OFF</span>
+                    </div>
+                    <p class="delivery">Free Express Delivery</p>
+                    <button class="add-to-cart-btn">Add to Cart</button>
+                </div>
+            </div>
+
+            <!-- Product 6 -->
+            <div class="product-card" data-category="rings diamonds">
+                <div class="badge">Bestseller</div>
+                <img src="06.jpeg" alt="Sapphire Tulip Ring">
+                <div class="product-info">
+                    <h3 class="product-title">Sapphire & Diamond Accent Ring</h3>
+                    <div class="rating">★ 4.8 <span>(620)</span></div>
+                    <div class="price-box">
+                        <span class="price">₹160</span>
+                        <span class="original-price">₹190</span>
+                        <span class="discount">17% OFF</span>
+                    </div>
+                    <p class="delivery">Free Express Delivery</p>
+                    <button class="add-to-cart-btn">Add to Cart</button>
+                </div>
+            </div>
+
+            <!-- Product 7 -->
+            <div class="product-card" data-category="earrings">
+                <img src="07.jpeg" alt="Elegance Pearl Studs">
+                <div class="product-info">
+                    <h3 class="product-title">Freshwater Pearl Stud Earrings</h3>
+                    <div class="rating">★ 4.5 <span>(190)</span></div>
+                    <div class="price-box">
+                        <span class="price">₹100</span>
+                        <span class="original-price">₹120</span>
+                        <span class="discount">17% OFF</span>
+                    </div>
+                    <p class="delivery">Free Express Delivery</p>
+                    <button class="add-to-cart-btn">Add to Cart</button>
+                </div>
+            </div>
+
+            <!-- Product 8 -->
+            <div class="product-card" data-category="necklaces gold">
+                <img src="08.jpeg" alt="Golden Flora Pendant">
+                <div class="product-info">
+                    <h3 class="product-title">Golden Flora Gemstone Pendant</h3>
+                    <div class="rating">★ 4.7 <span>(540)</span></div>
+                    <div class="price-box">
+                        <span class="price">₹145</span>
+                        <span class="original-price">₹170</span>
+                        <span class="discount">15% OFF</span>
+                    </div>
+                    <p class="delivery">Free Express Delivery</p>
+                    <button class="add-to-cart-btn">Add to Cart</button>
+                </div>
+            </div>
+
+            <!-- Product 9 -->
+            <div class="product-card" data-category="bracelets gold">
+                <img src="09.jpeg" alt="Golden Leaf Bracelet">
+                <div class="product-info">
+                    <h3 class="product-title">Golden Leaf Charm Bracelet</h3>
+                    <div class="rating">★ 4.8 <span>(380)</span></div>
+                    <div class="price-box">
+                        <span class="price">₹155</span>
+                        <span class="original-price">₹185</span>
+                        <span class="discount">16% OFF</span>
+                    </div>
+                    <p class="delivery">Free Express Delivery</p>
+                    <button class="add-to-cart-btn">Add to Cart</button>
+                </div>
+            </div>
+
+            <!-- Product 10 -->
+            <div class="product-card" data-category="rings gold">
+                <img src="10.jpeg" alt="Rose Gold Ring">
+                <div class="product-info">
+                    <h3 class="product-title">Rose Gold Bloom Ring</h3>
+                    <div class="rating">★ 4.7 <span>(275)</span></div>
+                    <div class="price-box">
+                        <span class="price">₹140</span>
+                        <span class="original-price">₹165</span>
+                        <span class="discount">15% OFF</span>
+                    </div>
+                    <p class="delivery">Free Express Delivery</p>
+                    <button class="add-to-cart-btn">Add to Cart</button>
+                </div>
+            </div>
+
+            <!-- Product 11 -->
+            <div class="product-card" data-category="earrings diamonds">
+                <img src="11.jpeg" alt="Diamond Halo Earrings">
+                <div class="product-info">
+                    <h3 class="product-title">Diamond Halo Drop Earrings</h3>
+                    <div class="rating">★ 4.9 <span>(510)</span></div>
+                    <div class="price-box">
+                        <span class="price">₹185</span>
+                        <span class="original-price">₹220</span>
+                        <span class="discount">16% OFF</span>
+                    </div>
+                    <p class="delivery">Free Express Delivery</p>
+                    <button class="add-to-cart-btn">Add to Cart</button>
+                </div>
+            </div>
+
+            <!-- Product 12 -->
+            <div class="product-card" data-category="necklaces diamonds">
+                <img src="12.jpeg" alt="Diamond Teardrop Necklace">
+                <div class="product-info">
+                    <h3 class="product-title">Diamond Teardrop Necklace</h3>
+                    <div class="rating">★ 4.8 <span>(445)</span></div>
+                    <div class="price-box">
+                        <span class="price">₹210</span>
+                        <span class="original-price">₹250</span>
+                        <span class="discount">16% OFF</span>
+                    </div>
+                    <p class="delivery">Free Express Delivery</p>
+                    <button class="add-to-cart-btn">Add to Cart</button>
+                </div>
+            </div>
+
+            <!-- Product 13 -->
+            <div class="product-card" data-category="bracelets diamonds">
+                <img src="13.jpeg" alt="Crystal Tennis Bracelet">
+                <div class="product-info">
+                    <h3 class="product-title">Crystal Line Tennis Bracelet</h3>
+                    <div class="rating">★ 4.6 <span>(295)</span></div>
+                    <div class="price-box">
+                        <span class="price">₹175</span>
+                        <span class="original-price">₹205</span>
+                        <span class="discount">15% OFF</span>
+                    </div>
+                    <p class="delivery">Free Express Delivery</p>
+                    <button class="add-to-cart-btn">Add to Cart</button>
+                </div>
+            </div>
+
+            <!-- Product 14 -->
+            <div class="product-card" data-category="rings diamonds">
+                <img src="14.jpeg" alt="Emerald Accent Ring">
+                <div class="product-info">
+                    <h3 class="product-title">Emerald Accent Cocktail Ring</h3>
+                    <div class="rating">★ 4.8 <span>(365)</span></div>
+                    <div class="price-box">
+                        <span class="price">₹195</span>
+                        <span class="original-price">₹230</span>
+                        <span class="discount">15% OFF</span>
+                    </div>
+                    <p class="delivery">Free Express Delivery</p>
+                    <button class="add-to-cart-btn">Add to Cart</button>
+                </div>
+            </div>
+
+            <!-- Product 15 -->
+            <div class="product-card" data-category="earrings gold">
+                <img src="15.jpeg" alt="Gold Hoop Earrings">
+                <div class="product-info">
+                    <h3 class="product-title">Classic 24k Gold Hoop Earrings</h3>
+                    <div class="rating">★ 4.7 <span>(610)</span></div>
+                    <div class="price-box">
+                        <span class="price">₹130</span>
+                        <span class="original-price">₹155</span>
+                        <span class="discount">16% OFF</span>
+                    </div>
+                    <p class="delivery">Free Express Delivery</p>
+                    <button class="add-to-cart-btn">Add to Cart</button>
+                </div>
+            </div>
+
+            <!-- Product 16 -->
+            <div class="product-card" data-category="necklaces gold">
+                <img src="16.jpeg" alt="Golden Chain Necklace">
+                <div class="product-info">
+                    <h3 class="product-title">Delicate Golden Chain Necklace</h3>
+                    <div class="rating">★ 4.6 <span>(240)</span></div>
+                    <div class="price-box">
+                        <span class="price">₹165</span>
+                        <span class="original-price">₹195</span>
+                        <span class="discount">15% OFF</span>
+                    </div>
+                    <p class="delivery">Free Express Delivery</p>
+                    <button class="add-to-cart-btn">Add to Cart</button>
+                </div>
+            </div>
+
+            <!-- Product 17 -->
+            <div class="product-card" data-category="bracelets gold">
+                <img src="17.jpeg" alt="Gold Cuff Bracelet">
+                <div class="product-info">
+                    <h3 class="product-title">Sculpted Gold Cuff Bracelet</h3>
+                    <div class="rating">★ 4.8 <span>(330)</span></div>
+                    <div class="price-box">
+                        <span class="price">₹220</span>
+                        <span class="original-price">₹260</span>
+                        <span class="discount">15% OFF</span>
+                    </div>
+                    <p class="delivery">Free Express Delivery</p>
+                    <button class="add-to-cart-btn">Add to Cart</button>
+                </div>
+            </div>
+
+            <!-- Product 18 -->
+            <div class="product-card" data-category="earrings diamonds">
+                <img src="18.jpeg" alt="Diamond Stud Earrings">
+                <div class="product-info">
+                    <h3 class="product-title">Classic Diamond Stud Earrings</h3>
+                    <div class="rating">★ 4.9 <span>(780)</span></div>
+                    <div class="price-box">
+                        <span class="price">₹200</span>
+                        <span class="original-price">₹240</span>
+                        <span class="discount">17% OFF</span>
+                    </div>
+                    <p class="delivery">Free Express Delivery</p>
+                    <button class="add-to-cart-btn">Add to Cart</button>
+                </div>
+            </div>
+
+            <!-- Product 19 -->
+            <div class="product-card" data-category="rings gold diamonds">
+                <div class="badge">New</div>
+                <img src="19.jpeg" alt="Golden Diamond Band">
+                <div class="product-info">
+                    <h3 class="product-title">Golden Diamond Eternity Band</h3>
+                    <div class="rating">★ 4.9 <span>(520)</span></div>
+                    <div class="price-box">
+                        <span class="price">₹235</span>
+                        <span class="original-price">₹280</span>
+                        <span class="discount">16% OFF</span>
+                    </div>
+                    <p class="delivery">Free Express Delivery</p>
+                    <button class="add-to-cart-btn">Add to Cart</button>
+                </div>
+            </div>
+
+        </section>
+
+        <aside class="festival-category-panel" aria-label="Festival categories">
+            <p class="festival-label">Festivals</p>
+            <button class="festival-option active" type="button" data-filter="all" aria-pressed="true">All</button>
+            <button class="festival-option" type="button" data-filter="wedding" aria-pressed="false">Wedding</button>
+            <button class="festival-option" type="button" data-filter="birthday" aria-pressed="false">Birthday</button>
+            <button class="festival-option" type="button" data-filter="reception" aria-pressed="false">Reception</button>
+            <button class="festival-option" type="button" data-filter="party" aria-pressed="false">Party</button>
+        </aside>
+    </main>
+
+    <!-- Brand information and service promises -->
+    <section id="about" class="about-section">
+        <div class="about-container">
+            <p class="about-eyebrow">The TULIP promise</p>
+            <h2 class="about-title">Jewellery with a story</h2>
+            <p class="about-description">
+                Welcome to <strong>TULIP</strong>, your premier destination for luxury jewellery designed for every moment.
+                We offer fine handcrafted jewellery—including certified diamond solitaire rings, 24k gold bands, royal gemstone pendant necklaces, and freshwater pearl drop earrings. Every piece is ethically sourced, lovingly crafted, and guaranteed for life.
+            </p>
+            <div class="about-highlights">
+                <div class="highlight-card">
+                    <span class="highlight-number">01</span>
+                    <h4>Ethically Sourced</h4>
+                    <p>100% certified conflict-free diamonds and eco-friendly fine gold.</p>
+                </div>
+                <div class="highlight-card">
+                    <span class="highlight-number">02</span>
+                    <h4>Artisan Quality</h4>
+                    <p>Handcrafted by master jewellers using heritage techniques.</p>
+                </div>
+                <div class="highlight-card">
+                    <span class="highlight-number">03</span>
+                    <h4>Lifetime Warranty</h4>
+                    <p>Complimentary cleaning, sizing, and maintenance on all items.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="site-footer" id="contact">
+        <div class="footer-main">
+            <div class="footer-brand-column">
+                <a href="#" class="footer-logo">TULIP<span>.</span></a>
+                <p>Thoughtfully crafted jewellery for every moment, delivered with care.</p>
+                <div class="footer-socials" aria-label="Social media links">
+                    <a href="#" aria-label="Instagram">Instagram</a>
+                    <a href="#" aria-label="Facebook">Facebook</a>
+                    <a href="#" aria-label="Pinterest">Pinterest</a>
+                </div>
+            </div>
+
+            <div class="footer-column">
+                <h3>Get to Know Us</h3>
+                <a href="#about">About TULIP</a>
+                <a href="#shop">Our Collections</a>
+                <a href="#contact">Careers</a>
+                <a href="#contact">Press</a>
+            </div>
+
+            <div class="footer-column">
+                <h3>Customer Care</h3>
+                <a href="#contact">Contact Us</a>
+                <a href="#contact">Shipping & Delivery</a>
+                <a href="#contact">Returns & Exchanges</a>
+                <a href="#contact">Jewellery Care Guide</a>
+            </div>
+
+            <div class="footer-column">
+                <h3>Let Us Help You</h3>
+                <a href="#cart">Your Cart</a>
+                <a href="#login">Your Account</a>
+                <a href="#contact">Track Your Order</a>
+                <a href="#contact">Help Centre</a>
+            </div>
+
+            <div class="footer-contact-column">
+                <h3>Contact</h3>
+                <p>123 Tulip Lane, New Delhi</p>
+                <p>+91 12345 67890</p>
+                <p>tulip54321@gmail.com</p>
+                <p class="footer-hours">Mon - Sat · 9 AM - 7 PM</p>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>&copy; 2026 TULIP Jewellery. All rights reserved.</p>
+            <div class="footer-policies">
+                <a href="#contact">Privacy Notice</a>
+                <a href="#contact">Terms of Use</a>
+                <a href="#contact">Accessibility</a>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
